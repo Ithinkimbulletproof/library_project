@@ -1,0 +1,44 @@
+{% extends 'base_generic.html' %}
+
+{% block title %}My Books{% endblock %}
+
+{% block content %}
+<h1>My Books</h1>
+{% if borrows %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Book Title</th>
+                <th>Borrowed Date</th>
+                <th>Days on Hand</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for borrow in borrows %}
+            <tr>
+                <td>{{ borrow.book.title }}</td>
+                <td>{{ borrow.borrowed_date }}</td>
+                <td>{{ (today|date:'U' - borrow.borrowed_date|date:'U') // 86400 }}</td>
+                <td>
+                    {% if not borrow.returned_date %}
+                        <form action="{% url 'return_book' borrow.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Return Book</button>
+                        </form>
+                    {% else %}
+                        Returned
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">You have not borrowed any books.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>You have not borrowed any books.</p>
+{% endif %}
+{% endblock %}
