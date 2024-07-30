@@ -1,34 +1,37 @@
-{% extends 'base_generic.html' %}
+{% extends 'library/base_generic.html' %}
+
+{% block title %}Список должников{% endblock %}
 
 {% block content %}
-  <h2>Catalog</h2>
-  <table>
+<h1>Список должников</h1>
+<table class="table table-striped">
     <thead>
-      <tr>
-        <th>Title</th>
-        <th>Author</th>
-        <th>Genre</th>
-        <th>Action</th>
-      </tr>
+        <tr>
+            <th>Имя пользователя</th>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Адрес</th>
+            <th>Название книги</th>
+            <th>Дата выдачи</th>
+            <th>Дни на руках</th>
+        </tr>
     </thead>
     <tbody>
-      {% for book in books %}
+        {% for borrow in borrows %}
         <tr>
-          <td>{{ book.title }}</td>
-          <td>{{ book.author }}</td>
-          <td>{{ book.genre }}</td>
-          <td>
-            {% if book.available %}
-              <form method="post" action="{% url 'borrow_book' book.id %}">
-                {% csrf_token %}
-                <button type="submit">Borrow</button>
-              </form>
-            {% else %}
-              Not available
-            {% endif %}
-          </td>
+            <td>{{ borrow.reader.username }}</td>
+            <td>{{ borrow.reader.first_name }}</td>
+            <td>{{ borrow.reader.last_name }}</td>
+            <td>{{ borrow.reader.address }}</td>
+            <td>{{ borrow.book.title }}</td>
+            <td>{{ borrow.borrowed_date }}</td>
+            <td>{{ (today|date:'U' - borrow.borrowed_date|date:'U') // 86400 }}</td>
         </tr>
-      {% endfor %}
+        {% empty %}
+        <tr>
+            <td colspan="7">Должников нет.</td>
+        </tr>
+        {% endfor %}
     </tbody>
-  </table>
+</table>
 {% endblock %}

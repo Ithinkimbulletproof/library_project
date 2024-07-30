@@ -1,17 +1,17 @@
-{% extends 'base_generic.html' %}
+{% extends 'library/base_generic.html' %}
 
-{% block title %}My Books{% endblock %}
+{% block title %}Мои книги{% endblock %}
 
 {% block content %}
-<h1>My Books</h1>
+<h1>Мои книги</h1>
 {% if borrows %}
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Book Title</th>
-                <th>Borrowed Date</th>
-                <th>Days on Hand</th>
-                <th>Action</th>
+                <th>Название книги</th>
+                <th>Дата выдачи</th>
+                <th>Срок в днях</th>
+                <th>Действие</th>
             </tr>
         </thead>
         <tbody>
@@ -24,21 +24,21 @@
                     {% if not borrow.returned_date %}
                         <form action="{% url 'return_book' borrow.id %}" method="post">
                             {% csrf_token %}
-                            <button type="submit" class="btn btn-danger">Return Book</button>
+                            <button type="submit" class="btn btn-danger">Вернуть книгу</button>
                         </form>
                     {% else %}
-                        Returned
+                        Возвращена
                     {% endif %}
                 </td>
             </tr>
             {% empty %}
             <tr>
-                <td colspan="4">You have not borrowed any books.</td>
+                <td colspan="4">Вы не взяли ни одной книги.</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
 {% else %}
-    <p>You have not borrowed any books.</p>
+    <p>Вы не взяли ни одной книги.</p>
 {% endif %}
 {% endblock %}

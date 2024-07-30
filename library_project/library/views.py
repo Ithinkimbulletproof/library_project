@@ -97,6 +97,12 @@ def debtors_list(request):
     borrows = Borrow.objects.filter(returned_date__isnull=True).order_by('reader__username')
     return render(request, 'library/debtors_list.html', {'borrows': borrows})
 
+def some_view(request):
+    is_librarian = request.user.groups.filter(name='Librarian').exists()
+    return render(request, 'library/base_generic.html', {
+        'is_librarian': is_librarian,
+    })
+
 
 class BookListView(generics.ListAPIView):
     queryset = Book.objects.all()

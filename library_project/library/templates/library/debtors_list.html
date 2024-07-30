@@ -1,19 +1,19 @@
-{% extends 'base_generic.html' %}
+{% extends 'library/base_generic.html' %}
 
-{% block title %}Debtors List{% endblock %}
+{% block title %}Список должников{% endblock %}
 
 {% block content %}
-<h1>Debtors List</h1>
+<h1>Список должников</h1>
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>Username</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Address</th>
-            <th>Book Title</th>
-            <th>Borrowed Date</th>
-            <th>Days on Hand</th>
+            <th>Имя пользователя</th>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Адрес</th>
+            <th>Название книги</th>
+            <th>Дата выдачи</th>
+            <th>Дни на руках</th>
         </tr>
     </thead>
     <tbody>
@@ -29,7 +29,7 @@
         </tr>
         {% empty %}
         <tr>
-            <td colspan="7">No debtors found.</td>
+            <td colspan="7">Должников нет.</td>
         </tr>
         {% endfor %}
     </tbody>

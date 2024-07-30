@@ -1,43 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Library{% endblock %}</title>
+    <title>{% block title %}Библиотека{% endblock %}</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="{% url 'catalog' %}">Library</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <a class="navbar-brand" href="{% url 'catalog' %}">Библиотека</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Переключить навигацию">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'catalog' %}">Catalog</a>
+                        <a class="nav-link" href="{% url 'catalog' %}">Каталог</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'my_books' %}">My Books</a>
+                        <a class="nav-link" href="{% url 'my_books' %}">Мои книги</a>
                     </li>
-                    {% if user.is_superuser or user.groups.filter(name='Librarian').exists %}
+                    {% if user.is_superuser or is_librarian %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'debtors_list' %}">Debtors List</a>
+                            <a class="nav-link" href="{% url 'debtors_list' %}">Список должников</a>
                         </li>
                     {% endif %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                        <a class="nav-link" href="{% url 'logout' %}">Выйти</a>
                     </li>
                 {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'login' %}">Login</a>
+                        <a class="nav-link" href="{% url 'login' %}">Войти</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'reader_signup' %}">Sign Up as Reader</a>
+                        <a class="nav-link" href="{% url 'reader_signup' %}">Зарегистрироваться как читатель</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'librarian_signup' %}">Sign Up as Librarian</a>
+                        <a class="nav-link" href="{% url 'librarian_signup' %}">Зарегистрироваться как библиотекарь</a>
                     </li>
                 {% endif %}
             </ul>
